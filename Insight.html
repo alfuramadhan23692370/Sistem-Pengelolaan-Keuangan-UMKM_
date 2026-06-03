@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Insight AI UMKM</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: white;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 240px;
+    height: 100vh;
+    position: fixed;
+    background: rgba(255,255,255,0.05);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+}
+
+.sidebar h2 {
+    color: #38bdf8;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: #ccc;
+    text-decoration: none;
+    margin: 15px 0;
+}
+
+.sidebar a:hover {
+    color: white;
+}
+
+/* MAIN */
+.container {
+    margin-left: 260px;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: rgba(255,255,255,0.08);
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+/* INSIGHT BOX */
+.insight {
+    padding: 15px;
+    background: rgba(56,189,248,0.15);
+    border-left: 4px solid #38bdf8;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* BUTTON */
+button {
+    padding: 12px;
+    width: 100%;
+    border: none;
+    background: #38bdf8;
+    color: black;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0ea5e9;
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>💰 UMKM AI</h2>
+    <a href="index.html">Dashboard</a>
+    <a href="Transaksi.html">Transaksi</a>
+    <a href="Laporan.html">Laporan</a>
+    <a href="Insight.html">Insight AI</a>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+    <h1>AI Business Insight</h1>
+
+    <!-- SUMMARY -->
+    <div class="card">
+        <h2>Ringkasan AI</h2>
+
+        <div class="insight">
+            📊 Pengeluaran Anda meningkat 12% bulan ini.
+        </div>
+
+        <div class="insight">
+            Penjualan stabil, namun profit masih bisa ditingkatkan.
+        </div>
+
+        <div class="insight">
+            Biaya operasional cukup tinggi pada kategori bahan baku.
+        </div>
+    </div>
+
+    <!-- CHART -->
+    <div class="card">
+        <h2>Trend Profit Bulanan</h2>
+        <canvas id="profitChart"></canvas>
+    </div>
+
+    <!-- REKOMENDASI -->
+    <div class="card">
+        <h2>Rekomendasi AI</h2>
+
+        <div class="insight">
+            ✔ Kurangi biaya operasional 10% untuk meningkatkan profit.
+        </div>
+
+        <div class="insight">
+            ✔ Fokus pada produk dengan margin tinggi.
+        </div>
+
+        <div class="insight">
+            ✔ Tingkatkan promosi digital untuk menaikkan penjualan.
+        </div>
+
+        <button onclick="generateInsight()">Generate Insight Baru</button>
+    </div>
+
+</div>
+
+<script>
+
+// ================= CHART PROFIT =================
+const ctx = document.getElementById('profitChart');
+
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei'],
+        datasets: [{
+            label: 'Profit UMKM',
+            data: [1000000, 1500000, 1200000, 1800000, 2200000],
+            borderColor: '#38bdf8',
+            tension: 0.4,
+            fill: true,
+            backgroundColor: 'rgba(56,189,248,0.2)'
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'white'
+                }
+            }
+        },
+        scales: {
+            x: {
+                ticks: { color: 'white' }
+            },
+            y: {
+                ticks: { color: 'white' }
+            }
+        }
+    }
+});
+
+
+// ================= SIMULASI AI INSIGHT =================
+function generateInsight() {
+    const insights = [
+        "Tren penjualan meningkat di akhir bulan.",
+        "Produk A memiliki margin keuntungan tertinggi.",
+        "Pengeluaran bahan baku perlu dikontrol.",
+        "Potensi profit naik 15% jika efisiensi ditingkatkan.",
+        "Performa bisnis stabil dengan pertumbuhan positif."
+    ];
+
+    const random = insights[Math.floor(Math.random() * insights.length)];
+
+    alert("AI Insight Baru: " + random);
+}
+
+</script>
+
+</body>
+</html>

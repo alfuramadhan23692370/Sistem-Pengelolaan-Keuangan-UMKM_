@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Laporan Keuangan UMKM AI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter;
+}
+
+body{
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+}
+
+.sidebar{
+    width:240px;
+    height:100vh;
+    position:fixed;
+    background:rgba(255,255,255,0.05);
+    padding:20px;
+}
+
+.sidebar h2{color:#38bdf8}
+
+.sidebar a{
+    display:block;
+    color:#ccc;
+    margin:15px 0;
+    text-decoration:none;
+}
+
+.container{
+    margin-left:260px;
+    padding:20px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:12px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+th{color:#38bdf8}
+
+button{
+    padding:6px 10px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.edit{background:#38bdf8}
+.delete{background:#ef4444;color:white}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>UMKM AI</h2>
+    <a href="index.html">Dashboard</a>
+    <a href="transaksi.html">Transaksi</a>
+    <a href="laporan.html">Laporan</a>
+    <a href="insight.html">Insight</a>
+</div>
+
+<div class="container">
+
+    <h1>📊 Laporan Keuangan</h1>
+
+    <!-- SUMMARY -->
+    <div class="card">
+        <h2>Ringkasan</h2>
+        <p>Pemasukan: Rp 5.000.000</p>
+        <p>Pengeluaran: Rp 3.200.000</p>
+        <p>Profit: Rp 1.800.000</p>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card">
+        <h2>Data Transaksi</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Deskripsi</th>
+                    <th>Nominal</th>
+                    <th>Kategori</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody id="dataTable">
+
+                <tr>
+                    <td contenteditable="true">Penjualan Produk A</td>
+                    <td contenteditable="true">500000</td>
+                    <td>Pendapatan</td>
+                    <td>
+                        <button class="edit" onclick="editRow(this)">Edit</button>
+                        <button class="delete" onclick="deleteRow(this)">Hapus</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td contenteditable="true">Beli bahan baku</td>
+                    <td contenteditable="true">200000</td>
+                    <td>Pengeluaran</td>
+                    <td>
+                        <button class="edit" onclick="editRow(this)">Edit</button>
+                        <button class="delete" onclick="deleteRow(this)">Hapus</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+
+// HAPUS ROW
+function deleteRow(btn){
+    btn.parentElement.parentElement.remove();
+}
+
+// EDIT ROW
+function editRow(btn){
+    alert("Edit langsung di tabel (content editable aktif). Simpan otomatis jika sudah dihubungkan ke backend.");
+}
+
+</script>
+
+</body>
+</html>

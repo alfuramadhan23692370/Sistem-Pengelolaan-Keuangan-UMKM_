@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Transaksi UMKM AI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family:Inter;
+    background:linear-gradient(135deg,#0f172a,#1e293b);
+    color:white;
+}
+
+.sidebar{
+    width:240px;
+    height:100vh;
+    position:fixed;
+    background:rgba(255,255,255,0.05);
+    padding:20px;
+}
+
+.sidebar h2{color:#38bdf8}
+
+.sidebar a{
+    display:block;
+    margin:15px 0;
+    color:#ccc;
+    text-decoration:none;
+}
+
+.container{
+    margin-left:260px;
+    padding:20px;
+}
+
+.card{
+    background:rgba(255,255,255,0.08);
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    margin:10px 0;
+    border:none;
+    border-radius:8px;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    background:#38bdf8;
+    font-weight:bold;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:10px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+th{color:#38bdf8}
+
+.del{
+    background:red;
+    color:white;
+    padding:5px 8px;
+    border:none;
+    border-radius:6px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>UMKM AI</h2>
+    <a href="index.html">Dashboard</a>
+    <a href="transaksi.html">Transaksi</a>
+    <a href="laporan.html">Laporan</a>
+    <a href="insight.html">Insight</a>
+</div>
+
+<div class="container">
+
+    <h1>Transaksi</h1>
+
+    <div class="card">
+
+        <input type="text" id="desc" placeholder="Deskripsi transaksi">
+        <input type="number" id="nominal" placeholder="Nominal">
+
+        <select title="Kategori Transaksi">
+    <option value="pemasukan">Pemasukan</option>
+    <option value="pengeluaran">Pengeluaran</option>
+</select>
+        <button onclick="addTransaction()">Tambah</button>
+
+        <p id="hasilAI">Hasil AI: -</p>
+    </div>
+
+    <div class="card">
+        <h2>Riwayat Transaksi</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Deskripsi</th>
+                    <th>Nominal</th>
+                    <th>Kategori</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<script>
+
+let data = [];
+
+async function addTransaction(){
+
+    let desc = document.getElementById("desc").value;
+    let nominal = document.getElementById("nominal").value;
+    let type = document.getElementById("type").value;
+
+    let kategori = type;
+
+    if(type === "auto"){
+        const res = await fetch("http://127.0.0.1:5000/predict",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({deskripsi:desc,nominal})
+        });
+
+        const result = await res.json();
+        kategori = result.kategori;
+
+        document.getElementById("hasilAI").innerText = "Hasil AI: "+kategori;
+    }
+
+    data.push({desc,nominal,kategori});
+    render();
+}
+
+function render(){
+
+    let table = document.getElementById("tableBody");
+    table.innerHTML = "";
+
+    data.forEach((d,i)=>{
+
+        table.innerHTML += `
+        <tr>
+            <td contenteditable="true">${d.desc}</td>
+            <td contenteditable="true">${d.nominal}</td>
+            <td>${d.kategori}</td>
+            <td><button class="del" onclick="hapus(${i})">Hapus</button></td>
+        </tr>
+        `;
+    });
+}
+
+function hapus(i){
+    data.splice(i,1);
+    render();
+}
+
+</script>
+
+</body>
+</html>
